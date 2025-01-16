@@ -13,20 +13,35 @@ const map = new ol.Map({
 
 
 const locations = [
-  { name: 'San Luis Obispo', coords: [-120.6625, 35.2828], color: 'yellow' },
-  { name: 'Santa Barbara', coords: [-119.6982, 34.4208], color: 'orange' },
-  { name: 'San Diego', coords: [-117.1611, 32.7157], color: 'purple' },
-  { name: 'Los Angeles', coords: [-118.2437, 34.0522], color: 'blue' },
-  { name: 'Sacramento', coords: [-121.4944, 38.5816], color: 'green' },
-  { name: 'Addis Ababa', coords: [38.7578, 9.0301], color: 'red' },
+  { name: 'San Luis Obispo', coords: [-120.6625, 35.2828], count: 2 },
+  { name: 'Santa Barbara', coords: [-119.6982, 34.4208], count: 1 },
+  { name: 'San Diego', coords: [-117.1611, 32.7157], count: 3 },
+  { name: 'Los Angeles', coords: [-118.2437, 34.0522], count: 1 },
+  { name: 'Sacramento', coords: [-121.4944, 38.5816], count: 1 },
+  { name: 'Addis Ababa', coords: [38.7578, 9.0301], count: 1 },
 ];
 
 
 locations.forEach(location => {
+  let color;
+  let radius;
+
+  if (location.count === 1) {
+    color = 'yellow';
+    radius = 5; 
+  } else if (location.count === 2) {
+    color = 'orange';
+    radius = 10; 
+  } else if (location.count >= 3) {
+    color = 'purple';
+    radius = 15; 
+  }
+
   const iconStyle = new ol.style.Style({
     image: new ol.style.Circle({
-      radius: 10:
-      fill: new ol.style.Fill({ color: location.color }),
+      radius: radius,
+      fill: new ol.style.Fill({ color: color }),
+      stroke: new ol.style.Stroke({ color: 'black', width: 1 }), 
     }),
   });
 
